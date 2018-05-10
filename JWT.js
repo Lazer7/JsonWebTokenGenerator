@@ -5,17 +5,11 @@ var app = express();
 var bodyParser = require('body-parser');
 var CryptoJS = require('crypto-js');
 var jwt = require('jsonwebtoken');
-// var x = {
-//     "username" : "Lazerman77777",
-//     "password" : "Lazerman7",
-//     "application" : "careaway",
-//     "roleType" : "public"
-// }
 
 app.use(bodyParser.urlencoded({
     extended: true
   }));
-
+// Testing of the server
 app.get('/testing', function(req,res){
     var coolbeans = {username :"hella"};
     if(coolbeans.username){
@@ -26,6 +20,8 @@ app.get('/testing', function(req,res){
 });
 
 app.get('/', function (req, res) {
+    // Different Users of our system
+
     // var x = {
     //     "username" : "isbae",
     //     "password" : "Lazerman7",
@@ -64,6 +60,9 @@ app.get('/', function (req, res) {
     res.sendFile( __dirname + "/" + "Index.html" );
 });
 
+// Redirect route to check the signature of the JWT 
+// To use this route change the action tag in the index.html to 
+// localhost:8085/process
 app.post('/process', function(req,res){
     var headtoken = req.headers.token;
     var token = req.body.jwt;
@@ -86,7 +85,7 @@ app.post('/process', function(req,res){
 
 
 
-
+// Set port to localhost 8085
 var server = app.listen(8085, function () {
   var host = server.address().address
   var port = server.address().port
