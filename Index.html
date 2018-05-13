@@ -29,7 +29,7 @@
                 <div class="tile is-child box">
                     <p class="title"> LOGIN </p>
                     Json Web Token
-                    <form action="http://localhost:8080/Sso/Login" method="POST">
+                    <form action="https://careaway.me/api/Sso/Login" method="POST">
                         <p class="control has-icons-left">
                             <input class ="input" id="Token" name="token" type="text" placeholder="Please enter JSON web token here"/>
                             <span class="icon is-small is-left">
@@ -89,7 +89,7 @@
     <script>
         $("#Register").click(function(){ 
             $.ajax({ 
-                url: 'http://localhost:8080/Sso/registration',  
+                url: 'https://careaway.me/api/Sso/registration',  
                 type: 'post', 
                 headers:{ 
                     token: $('#RegisterToken').val()
@@ -103,7 +103,7 @@
         }); 
         $("#ResetPassword").click(function(){ 
             $.ajax({ 
-                url: 'http://localhost:8080/Sso/ResetPassword',  
+                url: 'https://careaway.me/api/ResetPassword',  
                 type: 'put', 
                 headers:{ 
                     token: $('#ResetToken').val()
