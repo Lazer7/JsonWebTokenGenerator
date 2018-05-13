@@ -29,17 +29,17 @@
                     <p class="title"> LOGIN </p>
                     <label class="label"> Json Web Token </label>
                     <p class="control has-icons-left">
-                        <input class ="input" type="text" placeholder="Please enter JSON web token here"/>
+                        <input class ="input" id="Token" type="text" placeholder="Please enter JSON web token here"/>
                         <span class="icon is-small is-left">
                             <i class="fas fa-key"></i>
                         </span>
                     </p>
-                    <button type="button" class="button is-rounded is-outlined is-link" id="Login"> Submit </button>
+                    <button type="button" class="button is-rounded is-link" id="Login"> Submit </button>
               </div>
             </div>
             <div class="tile is-parent">
                 <div class="tile is-child box">
-                    <button type="button" class="button is-rounded is-outlined is-link" id="TokenGenerator"> Get Token </button>
+                    <button type="button" class="button is-rounded is-link" id="TokenGenerator"> Get Token </button>
                     <p id="JWT"> JWT WILL SHOW HERE</p>
                 </div>
             </div>
@@ -49,11 +49,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
         $("#Login").click(function(){
+            alert($("#Token").val());
+            console.log($("#Token").val());
             $.ajax({
                 url: 'http://localhost:8080/Sso/Login', 
                 type: 'post',
                 headers:{
-                    token: "abc"
+                    token: $("#Token").val()
                 },
                 dataType: 'json'
             }).done(function(data){
@@ -74,12 +76,20 @@
         });
     </script>
     <style>
-        html{
-            background: red;
+        html,body{
+            height: 100%;
+        }
+        body{
+
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            background-image: url("https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2015/04/colortheory.jpg");
         }
         #JWT{
-            width: 750px;
+            width: 800px;
             word-wrap: break-word;
+            text-align: center;
+            margin-left: 125px;
         }
         .button{
             width:100%;
@@ -89,6 +99,10 @@
         .tile{
             margin: 25px 25px 25px 25px;
             width: 100%;
+            text-align: center;
+        }
+        [class ^= "tile is-child"]{
+            background: linear-gradient(145deg, lightblue, white); 
         }
     </style>
 </html>
