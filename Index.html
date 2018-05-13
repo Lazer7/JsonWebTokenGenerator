@@ -7,6 +7,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title> SSO Logins</title>
+        <link href="https://fonts.googleapis.com/css?family=Black+Ops+One|Bungee+Shade" rel="stylesheet">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
         <link rel="icon" type="image/png" href="http://www.impellerstore.com/assets/img/iconregister.png"/>
         <link rel="shortcut icon" type="image/png" href="http://www.impellerstore.com/assets/img/iconregister.png"/>
@@ -22,55 +23,107 @@
         <div class="tile is-ancestor">
             <div class="tile is-4 is-vertical is-parent">
                 <div class="tile is-child box">
-                    <p class="title">WELCOME TO SINGLE SIGN ON</p>
+                    <p class="title" id="SSO">WELCOME TO SINGLE SIGN ON</p>
                     <p> This is where all hopes and dreams come true! </p>
                 </div>
                 <div class="tile is-child box">
                     <p class="title"> LOGIN </p>
-                    <label class="label"> Json Web Token </label>
-                    <p class="control has-icons-left">
-                        <input class ="input" id="Token" type="text" placeholder="Please enter JSON web token here"/>
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-key"></i>
-                        </span>
-                    </p>
-                    <button type="button" class="button is-rounded is-link" id="Login"> Submit </button>
+                    Json Web Token
+                    <form action="http://localhost:8080/Sso/Login" method="POST">
+                        <p class="control has-icons-left">
+                            <input class ="input" id="Token" name="token" type="text" placeholder="Please enter JSON web token here"/>
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-key"></i>
+                            </span>
+                        </p>
+                        <input type="submit" class="button is-rounded is-link" id="Login" value="Submit"/>
+                    </form>
               </div>
             </div>
             <div class="tile is-parent">
                 <div class="tile is-child box">
+                    <label class="title">Make Json Web Token with Credentials</label>
+                    <p class="control has-icons-left">
+                        <input class ="input" id="username" type="text" placeholder="Username"/>
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-key"></i>
+                        </span>
+                    </p>
+                    <p class="control has-icons-left">
+                        <input class ="input" id="password" type="password" placeholder="Password"/>
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-key"></i>
+                        </span>
+                    </p>
                     <button type="button" class="button is-rounded is-link" id="TokenGenerator"> Get Token </button>
                     <p id="JWT"> JWT WILL SHOW HERE</p>
                 </div>
             </div>
         </div>
+        
+        <div class="tile is-ancestor">
+            <div class="tile is-child box">
+                <label class="title">Register a New User to CareAway</label>
+                <p class="control has-icons-left">
+                    <input class ="input" id="RegisterToken" name="token" type="text" placeholder="Please enter JSON web token here"/>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-key"></i>
+                    </span>
+                </p>
+                <button type="button" class="button is-rounded is-link" id="Register"> Register User </button>
+            </div>
+            <div class="tile is-child box">
+                <label class="title">Update a User's Password</label>
+                <p class="control has-icons-left">
+                    <input class ="input" id="ResetToken" name="token" type="text" placeholder="Please enter JSON web token here"/>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-key"></i>
+                    </span>
+                </p>
+                <button type="button" class="button is-rounded is-link" id="ResetPassword"> Reset User's Password </button>
+            </div>
+      </div>
     </body>
    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
-        $("#Login").click(function(){
-            alert($("#Token").val());
-            console.log($("#Token").val());
-            $.ajax({
-                url: 'http://localhost:8080/Sso/Login', 
-                type: 'post',
-                headers:{
-                    token: $("#Token").val()
-                },
-                dataType: 'json'
-            }).done(function(data){
-                alert("STATUS CODE =" + data.status);
-            }).fail(function(data) {
-                alert("STATUS CODE =" + data.status);
-            });
-        });
+        $("#Register").click(function(){ 
+            $.ajax({ 
+                url: 'http://localhost:8080/Sso/registration',  
+                type: 'post', 
+                headers:{ 
+                    token: $('#RegisterToken').val()
+                }, 
+                dataType: 'json' 
+            }).done(function(data){ 
+                alert("Congratulations, the user " + $('#username').val() +" has been registered");
+            }).fail(function(data) { 
+                alert("Failed to register user \nSTATUS CODE =" + data.status); 
+            }); 
+        }); 
+        $("#ResetPassword").click(function(){ 
+            $.ajax({ 
+                url: 'http://localhost:8080/Sso/ResetPassword',  
+                type: 'put', 
+                headers:{ 
+                    token: $('#ResetToken').val()
+                }, 
+                dataType: 'json' 
+            }).done(function(data){ 
+                alert("The Password has been updated for user" + $('#username').val());
+            }).fail(function(data) { 
+                alert("Failed to update user password \nSTATUS CODE =" + data.status); 
+            }); 
+        }); 
         $("#TokenGenerator").click(function(){
             $.ajax({
                 url: 'http://localhost:8085/gimmeJWT',
-                type: 'get'
+                type: 'get',
+                data:{
+                    username: $('#username').val(),
+                    password: $('#password').val()
+                }
             }).done(function(data){
-                alert(data);
-                console.log(data);
                 $("#JWT").text(data);
             });
         });
@@ -78,6 +131,7 @@
     <style>
         html,body{
             height: 100%;
+            font-family: 'Black Ops One', cursive;
         }
         body{
 
@@ -85,23 +139,30 @@
             background-size: 100% 100%;
             background-image: url("https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2015/04/colortheory.jpg");
         }
+        .title{
+            font-family: 'Bungee Shade', cursive;
+        }
         #JWT{
             width: 800px;
             word-wrap: break-word;
             text-align: center;
             margin-left: 125px;
         }
+        .input,.i{
+            margin: 2px 2px 2px 2px;
+        }
         .button{
             width:100%;
             margin: 20px 0px 10px 0px;
+            font-family: 'Black Ops One', cursive;
         }
 
         .tile{
-            margin: 25px 25px 25px 25px;
             width: 100%;
             text-align: center;
         }
-        [class ^= "tile is-child"]{
+        .tile.is-child{
+            margin: 25px 25px 25px 25px !important;
             background: linear-gradient(145deg, lightblue, white); 
         }
     </style>
