@@ -7,6 +7,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title> SSO Logins</title>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
         <link rel="icon" type="image/png" href="http://www.impellerstore.com/assets/img/iconregister.png"/>
         <link rel="shortcut icon" type="image/png" href="http://www.impellerstore.com/assets/img/iconregister.png"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css">
@@ -17,13 +18,33 @@
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif] http://careaway.me/api/Sso/Login-->    
-        jwt:<br>
-        <input type="text" name="token"><br>
-        <button type="button" class="button is-rounded is-outlined is-link" id="Login"> Submit </button>
-        <button type="button" class="button is-rounded is-outlined is-link" id="TokenGenerator"> Get Token </button>
-        <p id="JWT"> JWT WILL SHOW HERE</p>
-
+        <div class="tile is-ancestor">
+            <div class="tile is-4 is-vertical is-parent">
+                <div class="tile is-child box">
+                    <p class="title">WELCOME TO SINGLE SIGN ON</p>
+                    <p> This is where all hopes and dreams come true! </p>
+                </div>
+                <div class="tile is-child box">
+                    <p class="title"> LOGIN </p>
+                    <label class="label"> Json Web Token </label>
+                    <p class="control has-icons-left">
+                        <input class ="input" type="text" placeholder="Please enter JSON web token here"/>
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-key"></i>
+                        </span>
+                    </p>
+                    <button type="button" class="button is-rounded is-outlined is-link" id="Login"> Submit </button>
+              </div>
+            </div>
+            <div class="tile is-parent">
+                <div class="tile is-child box">
+                    <button type="button" class="button is-rounded is-outlined is-link" id="TokenGenerator"> Get Token </button>
+                    <p id="JWT"> JWT WILL SHOW HERE</p>
+                </div>
+            </div>
+        </div>
     </body>
+   
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
         $("#Login").click(function(){
