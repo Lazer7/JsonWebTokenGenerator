@@ -6,22 +6,31 @@ var bodyParser = require('body-parser');
 var CryptoJS = require('crypto-js');
 var jwt = require('jsonwebtoken');
 
+// var x = {
+//     "username" : "Lazerman77777",
+//     "password" : "Lazerman7",
+//     "application" : "careaway",
+//     "roleType" : "public"
+// }
+
 app.use(bodyParser.urlencoded({
     extended: true
   }));
-// Testing of the server
-app.get('/testing', function(req,res){
-    var coolbeans = {username :"hella"};
-    if(coolbeans.username){
-        res.send("FOO");
-    } else {
-        res.send("KEK");
+
+app.get('/gimmeJWT', function(req,res){
+    var x = {
+        "username" : "TheChosenOne12",
+        "password" : "777Lazer777",
+        "application" : "careaway",
+        "roleType" : "public" 
     }
-});
+    var token = jwt.sign(x,"db3OIsj+BXE9NZDy0t8W3TcNekrF+2d/1sFnWG4HnV8TZY30iTOdtVWJG8abWvB1GlOgJuQZdcF2Luqm/hccMw==");
+    console.log("HERE");
+    res.end(token);
+})
+
 
 app.get('/', function (req, res) {
-    // Different Users of our system
-
     // var x = {
     //     "username" : "isbae",
     //     "password" : "Lazerman7",
@@ -32,26 +41,26 @@ app.get('/', function (req, res) {
     //     "username" : "AhriIsBae",
     //     "password" : "Lazerman7",
     //     "application" : "careaway",
-    //     "roleType" : "public"
+    //     "roleType" : "public" 
     // }
-    var x = {
-        "username" : "TheChosenOne12",
-        "password" : "777Lazer777",
-        "application" : "careaway",
-        "roleType" : "private"       
-    }
+    // var x = {
+    //     "username" : "TheChosenOne12",
+    //     "password" : "777Lazer777",
+    //     "application" : "careaway",
+    //     "roleType" : "private"       
+    // }
     // var x = {
     //     "username" : "Test1234",
     //     "password" : "Test1234Test1234Test1234",
     //     "application" : "careaway",
     //     "roleType" : "private"
     // }
-    // var x = {
-    //     "username" : "777Lazer777",
-    //     "password" : "7777Lazer7777",
-    //     "application" : "careaway",
-    //     "roleType" : "public" 
-    // }
+    var x = {
+        "username" : "777Lazer777",
+        "password" : "7777Lazer7777",
+        "application" : "careaway",
+        "roleType" : "public" 
+    }
     var token = jwt.sign(x,"db3OIsj+BXE9NZDy0t8W3TcNekrF+2d/1sFnWG4HnV8TZY30iTOdtVWJG8abWvB1GlOgJuQZdcF2Luqm/hccMw==");
     console.log(token);
     //     var token = jwt.sign({ } ,"2disbetterthan3d");
@@ -60,9 +69,6 @@ app.get('/', function (req, res) {
     res.sendFile( __dirname + "/" + "Index.html" );
 });
 
-// Redirect route to check the signature of the JWT 
-// To use this route change the action tag in the index.html to 
-// localhost:8085/process
 app.post('/process', function(req,res){
     var headtoken = req.headers.token;
     var token = req.body.jwt;
@@ -85,7 +91,7 @@ app.post('/process', function(req,res){
 
 
 
-// Set port to localhost 8085
+
 var server = app.listen(8085, function () {
   var host = server.address().address
   var port = server.address().port
