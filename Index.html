@@ -93,7 +93,9 @@
                 url: 'https://careaway.me/api/Sso/registration',  
                 type: 'post', 
                 headers:{ 
-                    token: $('#RegisterToken').val()
+                    token: $('#RegisterToken').val(),
+                    "Access-Control-Allow-Credentials" : "http://localhost:8085",
+                    "Accept" : "application/json"
                 }, 
                 dataType: 'json' 
             }).done(function(data){ 
@@ -107,7 +109,9 @@
                 url: 'https://careaway.me/api/Sso/ResetPassword',  
                 type: 'put', 
                 headers:{ 
-                    token: $('#ResetToken').val()
+                    token: $('#ResetToken').val(),
+                    "Access-Control-Allow-Credentials" : "http://localhost:8085",
+                    "Accept" : "application/json"
                 }, 
                 dataType: 'json' 
             }).done(function(data){ 
